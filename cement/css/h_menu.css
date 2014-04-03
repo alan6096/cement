@@ -1,0 +1,106 @@
+	.tabs {
+      position: relative;   
+      min-height: 50px; /* This part sucks */
+      clear: both;
+      margin: 8px 0;
+      
+    }
+    .tab {
+      float: left;
+    }
+    .tab label {
+      background: #eee; 
+      padding: 5px 30px 5px 30px; 
+
+      margin-left: -1px; 
+      position: relative;
+      left: 1px;
+      font-family: sans-serif, Helvetica;font-weight: bold;font-size: 12px;
+    }
+    .tab [type=radio] {
+      display: none;   
+    }
+    .content {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      background: white;
+      right: 0;
+    padding:3px 0px 3px 0px;
+      border: 1px solid #ccc;
+    }
+    [type=radio]:checked ~ label {
+      background: white;
+      
+      z-index: 2;
+      
+      border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border: 1px solid #C6D8EB;
+      border-bottom: 1px solid white;
+    }
+    [type=radio]:checked ~ label ~ .content {
+      z-index: 1;
+    }
+    
+    .content span {
+        padding:3px 0px 3px 20px;
+        margin:3px 0px 3px 10px;
+        border:0px solid #000;
+        font-family: sans-serif, Helvetica;font-size: 12px;
+        cursor: pointer;
+    }
+    .content span:hover{
+        color: #E65524;
+    }
+    
+    .mymenu {
+        background:#eee;
+        padding-top:1px
+    }
+    
+    #mycases{
+        background: url(images/assigned_tickets.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    #mycases_open,#othercases_open{
+        background: url(images/open_tickets.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    #mycases_resolved,#othercases_resolved{
+        background: url(images/answered_tickets.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    #othercases_all{
+        background: url(images/allcase.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    
+	#logout{
+        background: url(images/list_groups.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    
+	#system{
+        background: url(images/settings.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    
+	#notes{
+        background: url(images/pages.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }
+    
+	#user{
+        background: url(images/list_users.gif);
+        background-position: 0 50%;
+        background-repeat: no-repeat;
+    }

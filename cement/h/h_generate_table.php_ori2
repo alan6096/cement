@@ -1,0 +1,281 @@
+<?php
+$start=$_POST['start']; 
+$end=$_POST['end']; 
+$table=$_POST['table']; 
+$tb_field=$_POST['tb_column'];
+$tr_class=$_POST['tr_class'];
+$tb_th=$_POST['tb_th'];
+$displayby = $_POST['displayby'];
+$initval = $_POST['initval'];
+
+if(!$initval)$initval=1;
+$total_count = mysql_count($table,$displayby);
+
+$temp_tb_field = $tb_field;
+$tb_field = explode(",",$tb_field);
+$tb_th_array= explode(",",$tb_th);
+$displayby_array = explode(",",$displayby);
+
+$x=0;
+$found=0;
+$sql_param="";
+
+include '../conf.php';
+
+
+
+if(count($displayby_array)>0 && $displayby_array[0]!="")
+{
+    $x=0;
+    
+    foreach ($displayby_array as $value) 
+    {
+        $temp_array= explode(":",$value);
+        $param1 = $temp_array[0];
+        $param2 = $temp_array[1];
+    
+        if($x==0)
+            $sql_param = $sql_param . "where $param1 = '$param2'";
+        else {
+            $sql_param = $sql_param . "and $param1 = '$param2'";
+        }
+        $x++;
+    }
+    $found=1;
+}
+$backup_query1 = $sql_param;
+
+if($found==0)
+    $sql_param = $sql_param . " LIMIT $start, $end";
+
+if($found==1)
+    $sql_param = $sql_param . " LIMIT $start, $end";
+
+$hide="";
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=="onlyedit")$hide="display:none";
+
+$result = mysql_query("SELECT * FROM $table $sql_param") 
+or die(mysql_error()); 
+
+echo "
+<script>
+$(document).ready(function()
+{
+    $('#pagination$tr_class').smartpaginator(
+    {
+        totalrecords: $total_count, recordsperpage: 10, initval:$initval , next: 'Next', prev: 'Prev', first: 'First', last: 'Last', theme: 'white', onchange: onChange
+    });
+    //alert('#$tr_class');
+    
+});    
+</script> <span>this code is to have pagination generate ins this file and then echo $tr_class</span>
+";
+
+echo '<div class="CSSTableGenerator" style="font-size:9px;font-family:Verdana, Arial, Helvetica, sans-serif;">
+<div class="subindex22" style="padding:0px 10px 0px 10px">
+<a href="#" title="Create"><IMG id="mycreate'.$table.$tr_class.'" SRC="css/images/page_add.png" ALT="" height="20" width="20" style="border-style: none;'.$hide.'"></img></a>
+<a href="#" title="Edit"><IMG id="myupdate'.$table.$tr_class.'" SRC="css/images/page_edit.png" ALT="" height="20" width="20" style="border-style: none;"></img></a>
+<a href="#" title="Delete"><IMG id="mydelete'.$table.$tr_class.'" SRC="css/images/page_delete.png" ALT="" height="20" width="20" style="border-style: none;'.$hide.'"></img></a>
+</div>
+<table class="subindex">';
+
+echo "<tr>";
+foreach ($tb_th_array as $key) 
+{
+    echo "<th>$key</th>";
+    $x++;
+}
+echo "</tr>";
+
+
+while($row = mysql_fetch_array($result))
+{
+    $id=$row['id'];
+    echo "<tr class='$tr_class' id='$id'>"; //include id so we can select the value with jquery later
+    foreach ($tb_field as $value)
+    {
+        $child = explode("=",$value); //if : found make it to array $child
+        $column=$child[0]; //ege: name,email,age
+        
+        $join_array = explode(":", $value); //ege: join:sbu_id+id+bia_sbu $join_array[0] will return join
+        
+        if($join_array[0]=="join")  //join:tbl_employee.dept_id=tbl_department.id&tbl_department.sbu_id=tbl_sbu.id
+        {
+            $all_join = $join_array[1]; //ege: join:sbu_id+id+bia_sbu $join_array[0] will return sbu_id+id+bia_sbu
+            jointable($all_join,$table,$id); //just extract the <td>x</td>
+        }
+        else
+            {
+                //if(isset($row[$value]))
+                echo "<td>".nl2br($row[$value]).'</td>';
+            }
+            
+    }
+    echo '</tr>';
+}
+mysql_free_result($result);
+mysql_close($link);
+
+echo '</table></div>';
+echo "<button id='button1' title='$tr_class'>Button</button>";
+//echo "<div id='smart-paginator'></div>";
+//echo "<div id='pagination$tr_class'></div>";
+
+function jointable($myarray,$table,$id) //join:tbl_employee.dept_id=tbl_department.id&tbl_department.sbu_id=tbl_sbu.id
+{
+    $content1="";$content2="";
+$fullarray = explode("&", $myarray);
+  
+if(isset($fullarray[0]))
+{
+$content1 = $fullarray[0];
+    $content1_array = explode("+", $content1);
+    $content_value_left = $content1_array[0];
+        //$content_value_left_array = explode(".", $content_value_left);
+        //$table1 = $content_value_left_array[0];
+        $table1_field = $content_value_left;//$content_value_left_array[1];
+    
+    $content_value_right = $content1_array[1];
+        $content_value_right_array = explode(".", $content_value_right);
+        $table2 = $content_value_right_array[0];
+        $table2_field = $content_value_right_array[1];
+        
+}
+
+if(isset($fullarray[1]))
+{
+$content2= $fullarray[1];
+    $content2_array = explode("+", $content2);
+    $content_value_left = $content2_array[0];
+        $content_value_left_array = explode(".", $content_value_left);
+        $table3 = $content_value_left_array[0];
+        $table3_field = $content_value_left_array[1];
+    
+    $content_value_right = $content2_array[1];
+        $content_value_right_array = explode(".", $content_value_right);
+        $table4 = $content_value_right_array[0];
+        $table4_field = $content_value_right_array[1];
+}
+//echo "SELECT $table4.name as resultname FROM $table,$table2,$table4 WHERE $table.$table1_field = $table2.$table2_field AND $table3.$table3_field = $table4.$table4_field AND $table.id=$id";
+    include '../conf.php';
+    
+    //if(isset($fullarray[0]) && isset($fullarray[1]))
+    //$sqlstr = "SELECT $table1.name as resultname FROM $table1,$table2,$table3 WHERE $content1 AND $content2 AND $table1.id=$id";
+    //$sqlstr = "SELECT users.id,users.name as name1,department.name as name2 FROM users,department WHERE users.department_id = department.id and users.id=8";
+    //if(count($xx)<3)
+    if(count($fullarray)>1) /* for 3 join */
+    {
+        
+        $sqlstr = "SELECT $table4.name as resultname FROM $table,$table2,$table4 WHERE $table.$table1_field = $table2.$table2_field AND $table3.$table3_field = $table4.$table4_field AND $table.id=$id";
+    }
+    else /* for 2 join. I use id as default value to link table. It's important to craete table with field name id */
+    {
+        $sqlstr = "SELECT $table2.$table2_field as resultname FROM $table,$table2 WHERE $table.$table1_field = $table2.id AND $table.id=$id";
+    }
+    $result = mysql_query($sqlstr) or die(mysql_error()); 
+    
+    $row = mysql_fetch_array($result); //can work without loop i guess
+    //while($row = mysql_fetch_array($result))
+    {
+    echo "<td>".$row["resultname"].'</td>'; //no need "name as" also can
+    }
+}
+
+
+function jointable33($myarray,$table,$id)
+{
+    $xx=explode(" ",$myarray); //dont know why the symbol + didnt work here
+
+    if(isset($xx[0])) $link1=$xx[0]; /* dept_id */
+    if(isset($xx[1])) $link2=$xx[1]; /* id */
+    if(isset($xx[2])) $linktable=$xx[2]; /* tbl_department */
+    
+    if(isset($xx[3])) $link3=$xx[3]; /* sbu_id */
+    if(isset($xx[4])) $link4=$xx[4]; /* id */
+    if(isset($xx[5])) $linktable2=$xx[5]; /* tbl_sbu */
+
+    include '../conf.php';
+    
+    if(count($xx)>3)
+    $sqlstr = "SELECT $linktable2.name as resultname FROM $table, $linktable,$linktable2 WHERE $table.$link1 = $linktable.id AND $linktable.$link3 = $linktable2.$link4 AND $table.id=$id";
+    //$sqlstr = "SELECT users.id,users.name as name1,department.name as name2 FROM users,department WHERE users.department_id = department.id and users.id=8";
+    //if(count($xx)<3)
+    else
+    {
+        $sqlstr = "SELECT $linktable.name as resultname FROM $table,$linktable WHERE $table.$link1 = $linktable.$link2 AND $table.id=$id";
+    }   
+    $result = mysql_query($sqlstr) or die(mysql_error()); 
+    
+    $row = mysql_fetch_array($result); //can work without loop i guess
+    //while($row = mysql_fetch_array($result))
+    {
+    echo "<td>".$row["resultname"].'</td>'; //no need "name as" also can
+    }
+}
+
+function value($myarray)
+{
+    include '../conf.php';
+    $rs = DB_DataObject::factory($table);
+    $rs->id=$id;
+    $rs->find();
+}
+
+function pagination($table,$tr_class,$filterby)
+{
+    if($filterby)
+    {
+        $sql_param = $filterby;
+    }
+    $content="";
+    include '../conf.php';
+    $result = mysql_query("SELECT count(*) as item from $table $sql_param")
+    or die(mysql_error()); 
+    
+    $row = mysql_fetch_array($result);
+    
+    $item = $row["item"];//$rs->count()-1;
+    $display=10;
+    $total = ($item/$display);
+    $startpage = 0;$val1 = 0;
+    
+    if($total>round($total))$total=$total+1;
+    for ($i=1; $i<=round($total); $i++) 
+    {
+        //if($_GET["qNo"]==$i)
+        //$content= $content.' <b style="color:red;">' .$i.'</b>';
+        //if($_GET["qNo"]!=$i)
+        
+        
+        $val2 = $i*$display;
+        
+        $content= $content.' <a href="#" class="mypagination'.$tr_class.'" id="pagination'.$i.'" val1="'.$val1.'" val2="'.$display.'">'.$i.'</a>';
+        //$val1 = $i+$display;
+        $val1 = $val2;
+    } 
+    return 'Page:'.$content;
+    
+}
+
+function mysql_count($table,$param)
+{
+    $sql_param="";
+    if($param!="")
+    {
+        $param_array = explode(":", $param);
+        $param1 = $param_array[0];
+        $param2 = $param_array[1];
+        $sql_param = "where $param1 = '$param2'";
+    }
+  
+    include '../conf.php';
+    $result = mysql_query("SELECT count(*) as totaldata from $table $sql_param")
+    or die(mysql_error()); 
+    
+    $row = mysql_fetch_array($result);
+    
+    return $row["totaldata"];
+}
+    
+?>
+    

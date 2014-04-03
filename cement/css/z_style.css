@@ -1,0 +1,35 @@
+
+.dialog_field
+{
+	border-color:#CDCDCD;padding:30px;width:400px;height:150px;
+}
+
+.dialog_label
+{
+	float: left;
+	text-align: right;
+	margin-right: 15px;
+	width: 100px;
+	padding-top: 5px;
+}
+
+.dialog_input
+{
+	width:200px;
+}
+
+.dialog_select
+{
+	width:200px;
+}
+
+.dialog_select option
+{
+	
+}
+
+.dialog_textarea
+{
+	resize:none;
+	width:200px;
+}

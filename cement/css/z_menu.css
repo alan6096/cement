@@ -1,0 +1,45 @@
+ul.sidenav {
+	font-size: 1.2em;font: 12px Verdana, Arial, Helvetica, sans-serif;
+	float: left;
+	width: 230px;
+	margin: 0;
+	margin-top:10px;
+	padding: 0;
+	list-style: none;
+	background: #005094;
+	/*border-bottom: 1px solid #3373a9;
+	border-top: 1px solid #003867;*/
+}
+
+ul.sidenav li img{padding-right:10px}	
+	
+ul.sidenav li a{
+	display: block;
+	color: #fff;
+	text-decoration: none;
+	width: 210px;
+	padding: 10px 10px 10px 10px;
+	/*background: url(images/sidenav_.gif) no-repeat 5px 7px;*/
+	/*border-top: 1px solid #3373a9;
+	border-bottom: 1px solid #003867;*/
+}
+ul.sidenav li a:hover {
+	/*background: #003867 url(images/sidenav_.gif) no-repeat 5px 7px;*/
+	background: #003867;
+	border-top: 1px solid #1a4c76;
+	/*text-decoration: underline;*/
+}
+ul.sidenav li span{	display: none; }
+ul.sidenav li a:hover span {
+	display: block;
+	font-size: 0.8em;
+	padding: 10px 0;
+}
+
+ul.sidenav2 li:hover {
+	text-decoration: underline;
+}
+
+img {
+	cursor: pointer;
+}

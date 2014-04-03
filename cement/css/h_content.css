@@ -1,0 +1,64 @@
+#top_header {height:60px;}
+
+#top_header_left {float: left;}
+	
+#top_header_right
+{
+	float: right;
+	color: #333;
+}
+
+#divtable4health {
+-moz-border-radius: 5px;
+position: relative;
+float: right;
+padding-left: 5px;
+padding-right: 5px;
+margin-left: 10px;
+}
+
+#table4sysinfo,#table4health {
+background-color: #FFF;
+font-size: 10px;
+font-family: Helvetica, sans-serif;
+border:0px solid #000;
+}
+
+.YES {
+background-color: green;
+color: #FFF;
+font-weight: bold;
+}
+
+.NO {
+background-color: red;
+color: #FFF;
+}
+
+#new_ticket,#edit_ticket
+{
+	float:right;
+	border:1px solid #eee;
+	background:#fff;
+	margin:3px;
+	padding:2px 5px 2px 17px;
+	color:#000;
+	background: #fff url(images/new_ticket.gif);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    cursor:pointer;
+    
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+}
+#new_ticket:hover{color:#E65524;}
+#tablehere
+{
+	
+}
+
+.setting > div
+{
+	padding:10px 0px 10px 5px;
+}

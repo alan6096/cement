@@ -1,0 +1,35 @@
+.CSSTableGenerator table
+{
+	border: thin solid #aaa ;
+	border-collapse: collapse;
+	background-color:white;
+}
+
+.CSSTableGenerator table th 
+{
+	border: thin solid #000;
+	background-color:#DDDDDD;
+	color: #000;
+	padding:5px;font-size:9px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	text-transform:uppercase;
+}
+
+.CSSTableGenerator table tr
+{
+	border: thin solid #555555;
+}
+
+.CSSTableGenerator table td
+{
+	border: thin solid #555555;
+	padding:3px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+.CSSTableGenerator table tr:hover, tr.selected
+{
+	color: #000;background: #d8d8d8;
+	cursor: pointer;
+}

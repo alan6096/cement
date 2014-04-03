@@ -1,0 +1,24 @@
+#header,#left-sidebar,#loginform,.sidenav,li,ul,#subcontent1{display:none}
+
+@media all {
+	.page-break	{ display: none; }
+}
+
+@media print {
+	.page-break	{ display: block; page-break-before: always; }
+}
+
+body 
+{
+	background:none;
+	background: url("css/left-sidebar-back22.gif");
+}
+
+div#left-sidebar {
+    width: 0px;
+    float: none;
+}
+
+#sub_main3{
+	margin-left:-250px
+}

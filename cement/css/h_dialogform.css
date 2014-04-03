@@ -1,0 +1,72 @@
+/**
+ * 100% height layout with header and footer
+ * ----------------------------------------------
+ * Feel free to copy/use/change/improve
+ */
+
+
+#tableform {
+	font-family:arial,sans-serif;
+	font-size:small;
+	table-layout:fixed; /* force a solid grid */
+	border-collapse:collapse;
+	/* margin: 0 auto 1em; */
+
+}
+	#tableform th, #tableform td {
+		white-space:nowrap; /* don't want wrapping text */
+		padding:2px 20px 2px 5px; /* right padding for required field marker */
+	}
+
+	#tableform th {
+		padding:2px 0 2px 5px;
+		text-align:right;
+	}
+
+	#tableform td.required, tr.required td {
+		background:url("../req.gif") center right no-repeat;
+	}
+
+	#tableform input {
+		width:100%; /* simply scale inputs to table cell size */
+	}
+		#tableform td.input-group input {
+			width:auto; /* but not for radios or checks */ 
+		}
+
+.dialog_field
+{
+	border-color:#CDCDCD;padding:30px;width:400px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.dialog_label
+{
+	float: right;
+	text-align: right;
+	margin-right: 15px;
+	padding-top: 5px;
+}
+
+.dialog_input
+{
+	width:200px;
+}
+
+.dialog_select
+{
+	width:200px;
+}
+
+.dialog_select option
+{
+	
+}
+
+.dialog_textarea
+{
+	resize:none;
+	width:200px;
+}

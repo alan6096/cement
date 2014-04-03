@@ -1,0 +1,90 @@
+/**
+ * 100% height layout with header and footer
+ * ----------------------------------------------
+ * Feel free to copy/use/change/improve
+ */
+
+html,body {
+	margin:0;
+	padding:0;
+	height:100%; /* needed for container min-height */
+	background:gray;
+	
+	font-family:arial,sans-serif;
+	font-size:small;
+	color:#666;
+}
+
+h1 { 
+	font:1.5em georgia,serif; 
+	margin:0.5em 0;
+}
+
+h2 {
+	font:1.25em georgia,serif; 
+	margin:0 0 0.5em;
+}
+	h1, h2, a {
+		color:orange;
+	}
+
+p { 
+	line-height:1.5; 
+	margin:0 0 1em;
+}
+
+div#container {
+	position:relative; /* needed for footer positioning*/
+	margin:0 auto; /* center, not in IE5 */
+	width:1280px;
+	background:#f0f0f0;
+	
+	height:auto !important; /* real browsers */
+	height:100%; /* IE6: treaded as min-height*/
+
+	min-height:100%; /* real browsers */
+}
+
+div#header {
+	padding:8px;
+	background-color: #455B86;
+	border-bottom:6px double gray;
+
+}
+	div#header p {
+		font-style:italic;
+		font-size:1.1em;
+		margin:0;
+	}
+
+div#content {
+	padding:1em 1em 5em; /* bottom padding for footer */
+	background-color:#4D6696;
+	padding:5px 5px 5px 5px;
+	margin:0px 10px 0px 10px;
+}
+	div#content p {
+		text-align:justify;
+		padding:0 1em;
+	}
+
+div#footer {
+	font-family: sans-serif, Helvetica;
+	font-size: 12px;
+	color:#fff;
+	height:20px;
+	
+	position:absolute;
+	width:100%;
+	bottom:0; /* stick to bottom */
+	background-color:#4D6696;
+	border-top:6px double gray;
+	
+	margin:0 auto;
+    overflow:hidden;
+    bottom: 0px;
+}
+	div#footer p {
+		
+		margin:0;
+	}
