@@ -25,6 +25,11 @@ $(document).ready(function()
     {
         $("#content").load("budget_data.php",{plant:"bintulu"});
     });
+    
+    $('#setting').live('click',function()
+    {
+        $("#content").load("admin_setting.php");
+    });
 });	
 </script>
 </head>
